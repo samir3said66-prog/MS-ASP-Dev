@@ -1,5 +1,3 @@
-export type Dictionary = typeof en;
-
 export const en = {
   nav: {
     about: "About",
@@ -169,7 +167,9 @@ export const en = {
     category: "Category",
     notFound: "Project not found.",
   },
-} as const;
+};
+
+export type Dictionary = typeof en;
 
 export const ar: Dictionary = {
   nav: {
