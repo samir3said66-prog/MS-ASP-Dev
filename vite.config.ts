@@ -8,12 +8,33 @@ export default defineConfig({
     react(),
     tsconfigPaths(),
     tailwindPlugin(),
+    {
+      name: "externalize-node-modules",
+      resolveId(id) {
+        if (id.startsWith("node:")) {
+          return { id, external: true };
+        }
+      },
+    },
   ],
   build: {
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       input: "index.html",
+      external: [
+        "node:async_hooks",
+        "node:stream",
+        "node:util",
+        "node:events",
+        "node:path",
+        "node:fs",
+      ],
+      output: {
+        paths: {
+          "node:*": "[name]",
+        },
+      },
     },
     commonjsOptions: {
       transformMixedEsModules: true,
@@ -29,6 +50,7 @@ export default defineConfig({
     "process.env.NODE_ENV": '"production"',
   },
   optimizeDeps: {
+    exclude: ["@tanstack/start-storage-context"],
     esbuildOptions: {
       define: {
         global: "globalThis",
