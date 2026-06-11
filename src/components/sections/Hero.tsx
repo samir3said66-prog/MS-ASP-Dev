@@ -47,9 +47,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="flex-1"
+              className="flex-1 flex flex-col gap-4"
             >
-              <div className="group relative overflow-hidden rounded-2xl bg-card/50 hover:bg-card transition-colors duration-300 h-full">
+              <div className="group relative overflow-hidden rounded-2xl bg-card/50 hover:bg-card transition-colors duration-300 flex-1">
                 <img
                   src="/MS.jpg"
                   alt="Pragmatic systems shipped on ASP.NET Core"
@@ -61,6 +61,28 @@ export function Hero() {
                     Pragmatic systems, shipped on ASP.NET Core
                   </p>
                 </div>
+              </div>
+
+              {/* Action buttons - WhatsApp and Resume */}
+              <div className="flex flex-col gap-3">
+                {/* WhatsApp Hire Button */}
+                <a
+                  href="https://wa.me/201067358073?text=Hi%20Mostafa%2C%20I%27m%20interested%20in%20hiring%20you"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${COMPONENTS.buttonPrimary} w-full justify-center text-center`}
+                >
+                  <span>Hire me on WhatsApp</span>
+                </a>
+
+                {/* Resume Download Button */}
+                <a
+                  href="/resume.pdf"
+                  download
+                  className={`${COMPONENTS.buttonSecondary} w-full justify-center text-center`}
+                >
+                  <span>Download Resume</span>
+                </a>
               </div>
             </motion.div>
           </motion.div>
