@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
 import { SPACING, COLORS, FONTS, GRIDS, BORDERS, COMPONENTS } from "@/styles/theme";
@@ -42,19 +42,28 @@ export function Contact() {
       <SectionLabel eyebrow={t.contact.eyebrow} title={t.contact.title} />
       <div className={GRIDS.sectionLayout}>
         <div className="md:col-span-5">
-          <p className={`max-w-md ${FONTS.bodyLg} ${COLORS.textMuted}`}>
+          <p className={`max-w-md ${FONTS.bodyXl} ${COLORS.textMuted} leading-relaxed`}>
             {t.contact.lede}
           </p>
           <div className="mt-10 space-y-3">
-            <p className={`${FONTS.labelXs} ${COLORS.textMuted}`}>
+            <p className={`${FONTS.labelMd} ${COLORS.textMuted}`}>
               {t.contact.direct}
             </p>
             <a
-              href="mailto:hello@example.com"
+              href="mailto:m.ssaid356@gmail.com"
               className={`inline-flex items-center gap-2 ${FONTS.displaySm} underline decoration-border underline-offset-4 transition hover:decoration-foreground`}
             >
               <Mail className="size-5" />
-              hello@example.com
+              m.ssaid356@gmail.com
+            </a>
+          </div>
+          <div className="mt-6 space-y-2">
+            <a
+              href="tel:+201067358073"
+              className={`inline-flex items-center gap-2 ${FONTS.displaySm} ${COLORS.textMuted} hover:${COLORS.textBase} transition`}
+            >
+              <Phone className="size-5" />
+              +201067358073
             </a>
           </div>
         </div>
@@ -93,7 +102,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="group inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background transition hover:bg-foreground/90 disabled:opacity-50"
+                className={`group ${COMPONENTS.buttonPrimary}`}
               >
                 {status === "sending" ? t.contact.sending : t.contact.send}
                 <ArrowRight className="size-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />

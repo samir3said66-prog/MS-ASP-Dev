@@ -26,58 +26,47 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-background to-transparent" />
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center">
+        {/* Two column layout: Left metadata, Right main content */}
         <div className={GRIDS.sectionLayout}>
-          {/* Left column - empty for spacing */}
-          <div className="md:col-span-2" />
-          
-          {/* Main content */}
-          <div className="md:col-span-8 space-y-8">
-            {/* Eyebrow */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className={`${FONTS.labelSm} ${COLORS.textMuted}`}
-            >
-              — {t.hero.eyebrow}
-            </motion.p>
+          {/* Left column - Metadata/Tags */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="md:col-span-4 flex flex-col justify-center space-y-6"
+          >
+            <div className="space-y-4">
+              <p className={`${FONTS.labelSm} ${COLORS.textMuted}`}>
+                — {t.hero.eyebrow}
+              </p>
+              <div className="space-y-3">
+                {t.hero.title.map((line, i) => (
+                  <p key={i} className={`${FONTS.displaySm} ${COLORS.textBase}`}>
+                    {line}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </motion.div>
 
-            {/* Main title */}
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className={`font-title text-[clamp(3.5rem,12vw,8rem)] leading-[0.9] tracking-tight ${COLORS.textBase}`}
-            >
-              {t.hero.title.map((line, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="block"
-                >
-                  {line}
-                </motion.span>
-              ))}
-            </motion.h1>
-
-            {/* Lede/subtitle */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className={`max-w-2xl ${FONTS.bodyLg} ${COLORS.textMuted} pt-4`}
-            >
+          {/* Right column - Main description */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="md:col-span-8 flex flex-col justify-center pl-4 md:pl-12 border-l border-border/40"
+          >
+            {/* Main lede */}
+            <p className={`${FONTS.bodyXl} ${COLORS.textMuted} leading-relaxed tracking-[-0.01em]`}>
               {t.hero.lede}
-            </motion.p>
+            </p>
 
             {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="flex flex-wrap items-center gap-4 pt-8"
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-wrap items-center gap-4 mt-10"
             >
               <a
                 href="#projects"
@@ -93,10 +82,7 @@ export function Hero() {
                 {t.hero.ctaSecondary}
               </a>
             </motion.div>
-          </div>
-
-          {/* Right column - empty for spacing */}
-          <div className="md:col-span-2" />
+          </motion.div>
         </div>
       </div>
 

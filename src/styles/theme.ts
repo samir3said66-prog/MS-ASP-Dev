@@ -20,35 +20,37 @@ export const BORDERS = {
 } as const;
 
 export const FONTS = {
-  // Heading/Display sizes with Jim Nightshade font - optimized for readability
-  // All displayX* sizes use font-title (Jim Nightshade)
+  // HEADING SIZES - Jim Nightshade (font-title)
+  // All display sizes use font-title for consistent heading styling
   displayXl: "font-title text-6xl md:text-7xl leading-tight tracking-tight",
   displayLg: "font-title text-4xl md:text-5xl leading-tight tracking-tight",
   displayMd: "font-title text-3xl md:text-4xl leading-tight tracking-tight",
   displaySm: "font-title text-2xl md:text-3xl leading-snug tracking-tight",
   displayXs: "font-title text-xl md:text-2xl leading-snug tracking-tight",
   
-  // Body text sizes - optimized for readability
-  bodyXl: "text-xl md:text-2xl leading-relaxed",
-  bodyLg: "text-lg md:text-xl leading-relaxed",
-  bodyMd: "text-base md:text-lg leading-relaxed",
-  bodySm: "text-sm md:text-base leading-relaxed",
-  bodyXs: "text-xs md:text-sm",
+  // BODY TEXT - Italianno (font-accent) for all body content
+  // Used for main prose, descriptions, and body text throughout
+  bodyXl: "font-accent text-xl md:text-2xl leading-relaxed tracking-[-0.01em]",
+  bodyLg: "font-accent text-lg md:text-xl leading-relaxed tracking-[-0.005em]",
+  bodyMd: "font-accent text-base md:text-lg leading-relaxed",
+  bodySm: "font-accent text-sm md:text-base leading-relaxed",
+  bodyXs: "font-accent text-xs md:text-sm",
   
-  // Labels & captions
-  labelLg: "text-sm md:text-base uppercase tracking-[0.2em] font-semibold",
-  labelMd: "text-sm uppercase tracking-[0.18em] font-medium",
-  labelSm: "text-xs uppercase tracking-[0.2em] font-medium",
-  labelXs: "text-xs uppercase tracking-[0.2em]",
-  caption: "text-xs md:text-sm text-muted-foreground",
+  // LABELS & CAPTIONS - Italianno (font-accent) for metadata
+  // For eyebrow text, metadata, and descriptive labels
+  labelLg: "font-accent text-sm md:text-base uppercase tracking-[0.2em] font-semibold",
+  labelMd: "font-accent text-sm uppercase tracking-[0.18em] font-medium",
+  labelSm: "font-accent text-xs md:text-sm uppercase tracking-[0.2em] font-medium",
+  labelXs: "font-accent text-xs uppercase tracking-[0.2em]",
+  caption: "font-accent text-xs md:text-sm text-muted-foreground",
   
-  // Input/Form sizes
-  inputLg: "text-lg",
-  inputMd: "text-base",
+  // INPUT/FORM SIZES - Italianno (font-accent)
+  inputLg: "font-accent text-lg",
+  inputMd: "font-accent text-base",
   
-  // Button text
-  buttonSm: "text-xs md:text-sm font-semibold uppercase tracking-[0.18em]",
-  buttonMd: "text-sm font-semibold",
+  // BUTTON TEXT - Italianno (font-accent)
+  buttonSm: "font-accent text-xs md:text-sm font-semibold uppercase tracking-[0.18em]",
+  buttonMd: "font-accent text-sm font-semibold",
 } as const;
 
 export const COLORS = {
@@ -62,6 +64,7 @@ export const COLORS = {
   bgCard: "bg-card/50",
   bgCardLight: "bg-card/20",
   bgCardHover: "hover:bg-card/30",
+  bgMobileMenu: "bg-background/95",
   
   // Hover states (consistent across all)
   hoverState: "hover:bg-foreground hover:text-background hover:border-foreground hover:shadow-lg hover:shadow-foreground/20",

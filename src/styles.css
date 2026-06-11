@@ -2,8 +2,6 @@
 @source "../src";
 @import "tw-animate-css";
 
-@import url("https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap");
-
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -56,6 +54,7 @@
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-arabic: "Tajawal", "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-title: "Jim Nightshade", cursive;
+  --font-accent: "Italianno", cursive;
 }
 
 :root {
@@ -158,6 +157,12 @@
     font-family: var(--font-title);
     font-weight: 400;
     letter-spacing: -0.02em;
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
   html[dir="rtl"] .font-display {

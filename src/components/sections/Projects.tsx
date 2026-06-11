@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
-import { SPACING, COLORS, ANIMATIONS, BORDERS } from "@/styles/theme";
+import { SPACING, COLORS, ANIMATIONS, BORDERS, FONTS } from "@/styles/theme";
 
 export function Projects() {
   const t = useT();
@@ -53,21 +53,21 @@ export function Projects() {
               params={{ slug: p.slug }}
               className="group flex flex-col gap-4 p-6 md:p-8 md:grid md:grid-cols-12 md:items-center"
             >
-              <span className={`text-xs ${COLORS.textMuted} md:col-span-1`}>
+              <span className={`${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1`}>
                 0{i + 1}
               </span>
               <div className="md:col-span-5">
-                <span className="block font-display text-2xl leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1 sm:text-3xl md:text-3xl">
+                <span className={`${FONTS.displayMd} leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1`}>
                   {p.name}
                 </span>
-                <span className={`mt-2 block text-xs ${COLORS.textMuted} md:hidden`}>
+                <span className={`mt-2 block ${FONTS.bodyXs} ${COLORS.textMuted} md:hidden`}>
                   {p.summary} · {p.year}
                 </span>
               </div>
-              <span className={`hidden text-sm ${COLORS.textMuted} md:col-span-4 md:block`}>
+              <span className={`hidden ${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-4 md:block`}>
                 {p.summary}
               </span>
-              <span className={`hidden text-xs uppercase tracking-[0.18em] ${COLORS.textMuted} md:col-span-1 md:block`}>
+              <span className={`hidden ${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1 md:block`}>
                 {p.year}
               </span>
               <span className="flex items-center justify-start md:col-span-1 md:justify-end">

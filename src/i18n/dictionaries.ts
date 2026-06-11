@@ -10,7 +10,7 @@ export const en = {
     menu: "Open menu",
   },
   meta: {
-    title: "Your Name — .NET Full-Stack Engineer",
+    title: "Mostafa Samir Said — .NET Full-Stack Engineer",
     description:
       "Senior .NET full-stack engineer. ASP.NET Core, C#, EF Core, Azure, and React. Selected systems, case studies, and contact.",
   },
@@ -30,8 +30,8 @@ export const en = {
       "I lean on Clean Architecture, CQRS with MediatR, and EF Core 8 for the write side, and Dapper for the hot read paths. I write tests with xUnit, profile with dotTrace, and only reach for microservices when a real seam appears — not before.",
     ],
     stats: [
-      { value: "8+", label: "Years on .NET" },
-      { value: "40+", label: "APIs in production" },
+      { value: "4+", label: "Years on .NET" },
+      { value: "50+", label: "APIs in production" },
       { value: "150M+", label: "Requests / month served" },
     ],
   },
@@ -220,7 +220,7 @@ export const en = {
     direct: "Or write directly:",
   },
   footer: {
-    colophon: "Set in Instrument Serif & Work Sans · Tajawal for Arabic. Frontend built with React 19 and TanStack Start. APIs in this portfolio are mocked — the real ones run on ASP.NET Core 8.",
+    colophon: "Set in Jim Nightshade & Italianno · Tajawal for Arabic. Frontend built with React 19 and Vite. APIs in this portfolio are mocked — the real ones run on ASP.NET Core 8.",
     rights: "© 2026 — All rights reserved.",
   },
   toggle: {

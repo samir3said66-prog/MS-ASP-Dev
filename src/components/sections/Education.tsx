@@ -1,6 +1,6 @@
 import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
-import { SPACING, COLORS, GRIDS, BORDERS } from "@/styles/theme";
+import { SPACING, COLORS, GRIDS, BORDERS, FONTS } from "@/styles/theme";
 
 export function Education() {
   const t = useT();
@@ -14,13 +14,13 @@ export function Education() {
             className={`group ${BORDERS.roundedXl} ${BORDERS.borderTransparent} ${COLORS.bgCardLight} ${SPACING.cardPadding} transition ${COLORS.bgCardHover}`}
           >
             <div className={GRIDS.cardGrid1Col}>
-              <p className={`${COLORS.textXsLabel} ${COLORS.textMuted} md:col-span-3`}>
+              <p className={`${FONTS.labelMd} ${COLORS.textMuted} md:col-span-3`}>
                 {it.period}
               </p>
-              <p className={`font-display text-2xl md:col-span-6 md:text-3xl transition group-hover:${COLORS.textBase}`}>
+              <p className={`${FONTS.displaySm} transition group-hover:${COLORS.textBase} md:col-span-6`}>
                 {it.degree}
               </p>
-              <p className={`text-sm ${COLORS.textMuted} md:col-span-3 md:text-end`}>
+              <p className={`${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-3 md:text-end`}>
                 {it.school}
               </p>
             </div>

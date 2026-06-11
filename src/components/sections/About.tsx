@@ -10,13 +10,13 @@ export function About() {
       <SectionLabel eyebrow={t.about.eyebrow} title={t.about.title} />
       <div className={`${GRIDS.sectionLayout}`}>
         <div className="md:col-span-3" />
-        <div className={`space-y-6 md:col-span-6`}>
+        <div className={`space-y-8 md:col-span-6`}>
           {t.about.body.map((p, i) => (
             <motion.p
               key={i}
               {...ANIMATIONS.fadeIn}
               transition={{ ...ANIMATIONS.fadeIn.transition, delay: i * 0.1 }}
-              className={`${FONTS.bodyLg} ${COLORS.textBase}/80`}
+              className={`${FONTS.bodyXl} ${COLORS.textBase}/75 leading-relaxed`}
             >
               {p}
             </motion.p>
@@ -27,7 +27,7 @@ export function About() {
         {t.about.stats.map((s) => (
           <div key={s.label} className={`bg-card ${SPACING.cardPadding}`}>
             <p className={FONTS.displayXl}>{s.value}</p>
-            <p className={`mt-3 ${FONTS.labelSm} ${COLORS.textMuted}`}>
+            <p className={`mt-3 ${FONTS.labelMd} ${COLORS.textMuted}`}>
               {s.label}
             </p>
           </div>

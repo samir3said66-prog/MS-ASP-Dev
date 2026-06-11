@@ -16,13 +16,13 @@ export function Experience() {
             transition={{ ...ANIMATIONS.cardIn.transition, delay: i * 0.05 }}
             className={`grid gap-6 bg-background ${SPACING.cardPadding} md:grid-cols-12 md:p-10`}
           >
-            <p className={`${FONTS.labelSm} ${COLORS.textMuted} md:col-span-3`}>
+            <p className={`${FONTS.labelMd} ${COLORS.textMuted} md:col-span-3`}>
               {it.period}
             </p>
             <div className="md:col-span-9">
               <p className={FONTS.displayMd}>{it.role}</p>
               <p className={`mt-1 ${FONTS.bodySm} ${COLORS.textMuted}`}>{it.company}</p>
-              <p className={`mt-4 max-w-2xl ${FONTS.bodyMd} ${COLORS.textBase}/80`}>{it.body}</p>
+              <p className={`mt-4 max-w-2xl ${FONTS.bodyLg} ${COLORS.textBase}/75 leading-relaxed`}>{it.body}</p>
             </div>
           </motion.li>
         ))}
