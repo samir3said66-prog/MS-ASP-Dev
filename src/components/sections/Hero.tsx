@@ -61,12 +61,34 @@ export function Hero() {
               {t.hero.lede}
             </p>
 
+            {/* Image card with hover text */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="mt-10 mb-10"
+            >
+              <div className="group relative overflow-hidden rounded-2xl bg-card/50 hover:bg-card transition-colors duration-300">
+                <img
+                  src="/MS.jpg"
+                  alt="Pragmatic systems shipped on ASP.NET Core"
+                  className="w-full h-auto object-cover aspect-video opacity-100 group-hover:opacity-20 transition-opacity duration-300"
+                />
+                {/* Hover overlay text */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className={`${FONTS.displaySm} ${COLORS.textBase} text-center px-6`}>
+                    Pragmatic systems, shipped on ASP.NET Core
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
             {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-wrap items-center gap-4 mt-10"
+              className="flex flex-wrap items-center gap-4"
             >
               <a
                 href="#projects"
