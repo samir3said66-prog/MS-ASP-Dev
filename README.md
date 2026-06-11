@@ -1,128 +1,224 @@
-# MS — Editorial Portfolio
+# Mostafa Samir Said — .NET Full-Stack Engineer
 
-<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 10px; color: white; margin: 20px 0;">
+A modern, high-performance portfolio website showcasing professional work, experience, and expertise in ASP.NET Core, C#, and full-stack development.
 
-## 🚀 About This Project
+## ✨ Features
 
-A modern, bilingual portfolio website built with React, TanStack Router, and Vite. Showcasing professional work, experience, and contact information with a clean, editorial design.
+- **Responsive Design** - Optimized for desktop, tablet, and mobile
+- **Bilingual Support** - Seamless Arabic/English language switching with RTL support
+- **Dark Mode** - Automatic system preference detection
+- **High Performance** - Built with Vite for fast builds and runtime
+- **Modern Stack** - React 19, TypeScript, TailwindCSS v4, Framer Motion
+- **SEO Optimized** - Proper meta tags, structured data, and sitemap
+- **Accessible** - WCAG compliance focus, keyboard navigation
+- **3D Graphics** - Three.js particle animations for visual appeal
 
-### ✨ Features
-
-- **Responsive Design** - Works perfectly on desktop, tablet, and mobile
-- **Bilingual Support** - Seamless Arabic/English language switching
-- **Dark Mode** - Auto-detects system preferences
-- **Fast Performance** - Built with Vite for lightning-fast builds
-- **SEO Optimized** - Proper meta tags and structured data
-- **Modern Stack** - React 19, TypeScript, TailwindCSS, Radix UI
-
-### 📦 Tech Stack
-
-- **Frontend Framework**: React 19.2.0
-- **Routing**: TanStack Router 1.168.25
-- **State Management**: Zustand 5.0.14
-- **Styling**: TailwindCSS 4.2.1, Radix UI Components
-- **Build Tool**: Vite 7.3.1
-- **Package Manager**: Bun
-- **Deployment**: Netlify
-
-### 🛠️ Installation
+## 🚀 Quick Start
 
 ```bash
-# Using Bun (recommended)
+# Install dependencies
 bun install
 
-# Or using npm
-npm install
-```
-
-### 📝 Development
-
-```bash
 # Start development server
 bun run dev
 
 # Build for production
 bun run build
-
-# Preview production build
-bun run preview
-
-# Run linter
-bun run lint
-
-# Format code
-bun run format
 ```
 
-### 📁 Project Structure
+Visit `http://localhost:5173` to view the portfolio.
+
+## 📚 Documentation
+
+Comprehensive documentation available in `/docs`:
+
+- **[SETUP.md](./docs/SETUP.md)** - Installation, development, and troubleshooting
+- **[ARCHITECTURE.md](./docs/ARCHITECTURE.md)** - Project structure and component hierarchy
+- **[STYLING.md](./docs/STYLING.md)** - Design system, typography, and theming
+- **[DEPLOYMENT.md](./docs/DEPLOYMENT.md)** - Build and deployment instructions
+- **[INTERNATIONALIZATION.md](./docs/INTERNATIONALIZATION.md)** - i18n setup and translation management
+- **[CSS_LINTER_INFO.md](./docs/CSS_LINTER_INFO.md)** - Tailwind v4 linter configuration
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 19** - UI framework
+- **TypeScript** - Type safety
+- **TanStack Router** - File-based routing
+- **Vite** - Build tool and dev server
+
+### Styling & Design
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **Radix UI** - Headless component library
+
+### Development
+- **Bun** - Fast JavaScript runtime and package manager
+- **Node 20+** - JavaScript runtime
+
+### Deployment
+- **Netlify** - Automatic deployment on push
+- **GitHub** - Source control and CI/CD trigger
+
+## 📦 Key Dependencies
+
+```json
+{
+  "react": "19.2.0",
+  "@tanstack/react-router": "1.168.25",
+  "@tanstack/react-query": "5.80.0",
+  "framer-motion": "11.15.0",
+  "three": "r168",
+  "tailwindcss": "4.2.1",
+  "typescript": "5.7.3",
+  "vite": "7.3.1",
+  "zustand": "5.0.14"
+}
+```
+
+## 🎨 Design System
+
+The portfolio uses a centralized, component-based design system:
+
+- **Typography**: Jim Nightshade (headings) + Italianno (body)
+- **Colors**: Custom OkLch color palette with light/dark modes
+- **Layout**: Tailwind-based responsive grid system
+- **Components**: Pre-built styled components for consistency
+
+See [STYLING.md](./docs/STYLING.md) for detailed design system documentation.
+
+## 🌍 Internationalization
+
+- **Languages**: English (default) and Arabic
+- **RTL Support**: Automatic layout adaptation for Arabic
+- **Custom i18n**: Lightweight, no external dependencies
+- **Type Safe**: TypeScript validation for translations
+
+See [INTERNATIONALIZATION.md](./docs/INTERNATIONALIZATION.md) for setup details.
+
+## 🚢 Deployment
+
+### Automatic Deployment
+```
+Push to main branch
+  ↓
+Netlify webhook triggered
+  ↓
+bun install && bun run build
+  ↓
+Deploy to CDN
+```
+
+**Live Site**: [ms-asp-dev.netlify.app](https://ms-asp-dev.netlify.app)
+
+See [DEPLOYMENT.md](./docs/DEPLOYMENT.md) for detailed deployment guide.
+
+## 📁 Project Structure
 
 ```
 src/
-├── components/          # Reusable React components
+├── components/          # React components
 │   ├── layout/         # Header, Footer, Navigation
-│   └── sections/       # Page sections (Hero, About, Skills, etc.)
-├── routes/             # TanStack Router page routes
-├── lib/                # Utility functions and helpers
-├── store/              # Zustand state management
-├── i18n/               # Internationalization (Arabic/English)
+│   ├── sections/       # Page sections (Hero, About, Skills, etc.)
+│   └── ui/             # Radix UI components
+├── routes/             # TanStack Router pages
+├── i18n/               # Internationalization
+├── styles/             # Theme system (centralized)
 ├── hooks/              # Custom React hooks
-├── styles.css          # Global styles
 └── main.tsx            # Entry point
+
+docs/                    # Documentation
+├── SETUP.md
+├── ARCHITECTURE.md
+├── STYLING.md
+├── DEPLOYMENT.md
+├── INTERNATIONALIZATION.md
+└── CSS_LINTER_INFO.md
+
+public/                  # Static assets
+├── favicon.svg
+└── resume.pdf
 ```
 
-### 🌐 Routes
+See [ARCHITECTURE.md](./docs/ARCHITECTURE.md) for complete structure.
 
-- `/` - Home/Portfolio page
-- `/projects/:slug` - Individual project details
+## 🎯 Content Sections
 
-### 🚀 Deployment
+### Home Page
+- **Hero** - Eye-catching introduction with decorative elements
+- **About** - Professional background and experience
+- **Skills** - Technical toolkit organized by category
+- **Projects** - Featured work with case studies
+- **Experience** - Professional history and roles
+- **Education** - Qualifications and certifications
+- **Contact** - Get in touch form and social links
 
-This app is configured for **Netlify** deployment:
+## 🔧 Available Commands
 
-1. Push code to GitHub
-2. Connect repository to Netlify
-3. Netlify automatically builds and deploys on `main` branch
+```bash
+# Development
+bun run dev              # Start dev server
+bun run preview         # Preview production build
 
-**Live Site**: [https://ms-asp-dev.netlify.app](https://ms-asp-dev.netlify.app)
+# Build
+bun run build           # Build for production
+bun run build:analyze   # Analyze bundle size
 
-### 📋 Build Configuration
+# Code Quality
+bun run lint            # Run ESLint
+bun run format          # Format with Prettier
+bun run type-check      # TypeScript type checking
 
-- **Build Command**: `bun install && bun run build`
-- **Publish Directory**: `dist`
-- **Node Version**: 20
+# Utilities
+bun run clean           # Clean build artifacts
+```
 
-### 🎨 Customization
+## 🌟 Performance
 
-Update these files to customize:
-- `src/routes/index.tsx` - Main portfolio content
-- `src/routes/__root.tsx` - Global layout and meta tags
-- `tailwind.config.ts` - Color scheme and design tokens
-- `public/favicon.svg` - Favicon
+### Core Web Vitals Targets
+- **LCP** (Largest Contentful Paint): < 2.5s
+- **FID** (First Input Delay): < 100ms
+- **CLS** (Cumulative Layout Shift): < 0.1
 
-### 📦 Key Dependencies
+### Optimization Techniques
+- Lazy loading for Three.js components
+- CSS minification via Tailwind v4
+- JavaScript tree-shaking with Vite
+- Image optimization
+- Reduced motion support for animations
 
-- `@tanstack/react-router` - Routing
-- `@tanstack/react-query` - Data fetching
-- `zustand` - State management
-- `react-hook-form` - Form handling
-- `zod` - Schema validation
-- `framer-motion` - Animations
-- `recharts` - Data visualization
+## 🔐 Environment
 
-### 🔧 Environment Setup
+No environment variables required for basic deployment. All configuration is code-based for simplicity.
 
-No environment variables required for basic setup. All configuration is in code.
+## 📝 License
 
-### 📄 License
+Open source. Feel free to use as inspiration or template.
 
-This project is open source.
+## 🤝 Contributing
+
+This is a personal portfolio. For improvements or bug reports, please create an issue or pull request.
+
+## ✅ Checklist
+
+- [x] Responsive design
+- [x] Bilingual support (EN/AR)
+- [x] Dark mode
+- [x] SEO optimized
+- [x] Performance optimized
+- [x] Accessibility features
+- [x] Type safe (TypeScript)
+- [x] No styling duplication
+- [x] Comprehensive documentation
+- [x] Automated deployment
+
+## 📞 Contact
+
+- **Email**: m.ssaid356@gmail.com
+- **Phone**: +201067358073
+- **GitHub**: [Mostafa-SAID7](https://github.com/Mostafa-SAID7)
+- **LinkedIn**: [mostafasamirsaid](https://www.linkedin.com/in/mostafasamirsaid)
 
 ---
 
-<div style="text-align: center; margin-top: 30px; color: #666;">
-
-**Made with ❤️ | Built with React & Vite**
-
-</div>
-
-</div>
+Made with ❤️ using React, Vite, and TailwindCSS
