@@ -39,7 +39,6 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    minify: "terser",
   },
   resolve: {
     alias: {
