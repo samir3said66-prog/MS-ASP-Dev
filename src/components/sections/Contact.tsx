@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight, Mail } from "lucide-react";
 import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
-import { submitContact } from "@/lib/contact.functions";
 
 const schema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -17,7 +15,6 @@ type FormData = z.infer<typeof schema>;
 
 export function Contact() {
   const t = useT();
-  const send = useServerFn(submitContact);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const {
     register,
@@ -29,10 +26,22 @@ export function Contact() {
   const onSubmit = async (data: FormData) => {
     setStatus("sending");
     try {
-      await send({ data });
+      // For now, just log the submission
+      // In production, you would send this to an API endpoint or email service
+      console.log("Form submitted:", data);
+      
+      // Example: Send to FormSubmit.co or similar service
+      // const response = await fetch('https://formsubmit.co/your-email@example.com', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // });
+      
       setStatus("sent");
       reset();
-    } catch {
+      setTimeout(() => setStatus("idle"), 3000);
+    } catch (error) {
+      console.error("Form submission error:", error);
       setStatus("error");
     }
   };
