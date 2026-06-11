@@ -20,32 +20,34 @@ export const BORDERS = {
 } as const;
 
 export const FONTS = {
-  // Heading/Display sizes
-  displayXl: "font-display text-5xl md:text-6xl",
-  displayLg: "font-display text-4xl md:text-5xl",
-  displayMd: "font-display text-3xl md:text-4xl",
-  displaySm: "font-display text-2xl md:text-3xl",
-  displayXs: "font-display text-xl md:text-2xl",
+  // Heading/Display sizes - optimized for readability
+  displayXl: "font-display text-6xl md:text-7xl leading-tight",
+  displayLg: "font-display text-4xl md:text-5xl leading-tight",
+  displayMd: "font-display text-3xl md:text-4xl leading-tight",
+  displaySm: "font-display text-2xl md:text-3xl leading-snug",
+  displayXs: "font-display text-xl md:text-2xl leading-snug",
   
-  // Body text sizes
-  bodyXl: "text-xl md:text-2xl",
+  // Body text sizes - optimized for readability
+  bodyXl: "text-xl md:text-2xl leading-relaxed",
   bodyLg: "text-lg md:text-xl leading-relaxed",
-  bodyMd: "text-base leading-relaxed",
-  bodySm: "text-sm leading-relaxed",
-  bodyXs: "text-xs",
+  bodyMd: "text-base md:text-lg leading-relaxed",
+  bodySm: "text-sm md:text-base leading-relaxed",
+  bodyXs: "text-xs md:text-sm",
   
   // Labels & captions
+  labelLg: "text-sm md:text-base uppercase tracking-[0.2em] font-semibold",
+  labelMd: "text-sm uppercase tracking-[0.18em] font-medium",
+  labelSm: "text-xs uppercase tracking-[0.2em] font-medium",
   labelXs: "text-xs uppercase tracking-[0.2em]",
-  labelSm: "text-sm uppercase tracking-[0.18em]",
-  caption: "text-xs text-muted-foreground",
+  caption: "text-xs md:text-sm text-muted-foreground",
   
   // Input/Form sizes
   inputLg: "text-lg",
   inputMd: "text-base",
   
   // Button text
-  buttonSm: "text-xs font-medium uppercase tracking-[0.18em]",
-  buttonMd: "text-sm font-medium",
+  buttonSm: "text-xs md:text-sm font-semibold uppercase tracking-[0.18em]",
+  buttonMd: "text-sm font-semibold",
 } as const;
 
 export const COLORS = {

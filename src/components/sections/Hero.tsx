@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { useT } from "@/i18n/useT";
+import { FONTS, COLORS, COMPONENTS } from "@/styles/theme";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const InkParticles = lazy(() => import("../three/InkParticles"));
@@ -29,12 +30,12 @@ export function Hero() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-xs uppercase tracking-[0.3em] text-muted-foreground"
+          className={`${FONTS.labelSm} ${COLORS.textMuted}`}
         >
           {t.hero.eyebrow}
         </motion.p>
 
-        <h1 className="mt-8 font-display text-[clamp(3rem,11vw,11rem)] leading-[0.95] tracking-tight">
+        <h1 className={`mt-8 font-display text-[clamp(3rem,11vw,11rem)] leading-[0.95] tracking-tight`}>
           {t.hero.title.map((line, i) => (
             <motion.span
               key={i}
@@ -52,7 +53,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-10 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+          className={`mt-10 max-w-xl ${FONTS.bodyXl} ${COLORS.textMuted}`}
         >
           {t.hero.lede}
         </motion.p>
@@ -65,14 +66,14 @@ export function Hero() {
         >
           <a
             href="#projects"
-            className="group inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background transition hover:bg-foreground/90"
+            className={`group ${COMPONENTS.buttonPrimary}`}
           >
             {t.hero.cta}
             <ArrowRight className="size-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
           </a>
           <a
             href="#contact"
-            className="inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 text-sm font-medium transition hover:bg-foreground hover:text-background"
+            className={`${COMPONENTS.buttonSecondary}`}
           >
             {t.hero.ctaSecondary}
           </a>
@@ -80,7 +81,7 @@ export function Hero() {
       </div>
 
       <div className="mx-auto flex w-full max-w-7xl items-end justify-between">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <p className={`${FONTS.labelSm} ${COLORS.textMuted}`}>
           {t.hero.location}
         </p>
         <ArrowDown className="size-4 animate-bounce text-muted-foreground" aria-hidden />
