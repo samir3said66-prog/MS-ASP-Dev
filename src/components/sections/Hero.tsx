@@ -1,6 +1,6 @@
 import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight, Download } from "lucide-react";
 import { useT } from "@/i18n/useT";
 import { FONTS, COLORS, COMPONENTS, GRIDS } from "@/styles/theme";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
@@ -79,9 +79,10 @@ export function Hero() {
                 <a
                   href="/resume.pdf"
                   download
-                  className={`${COMPONENTS.buttonSecondary} flex-1 justify-center text-center`}
+                  className={`${COMPONENTS.buttonSecondary} flex-1 justify-center`}
                 >
-                  <span>Download Resume</span>
+                  <Download className="size-3.5" />
+                  <span>Resume</span>
                 </a>
               </div>
             </motion.div>
