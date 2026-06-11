@@ -29,7 +29,7 @@ export function Header() {
       className={[
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-border/40 bg-background/80 backdrop-blur-md"
+          ? "border-b border-border/40 bg-background/95 backdrop-blur-lg shadow-sm"
           : "bg-transparent",
       ].join(" ")}
     >
@@ -71,7 +71,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-10 items-center justify-center rounded-full border border-border/60 md:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-full border border-border/60 transition hover:border-foreground/40 md:hidden"
           aria-label={t.nav.menu}
           aria-expanded={open}
         >
@@ -80,13 +80,13 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-[64px] z-40 flex flex-col gap-2 bg-background px-6 py-8 md:hidden">
+        <div className="fixed inset-0 top-[64px] z-40 flex flex-col gap-2 bg-card/80 backdrop-blur-md px-6 py-8 md:hidden border-t border-border/40">
           {SECTIONS.map((id) => (
             <a
               key={id}
               href={`#${id}`}
               onClick={() => setOpen(false)}
-              className="border-b border-border/40 py-4 font-display text-3xl"
+              className="border-b border-border/40 py-4 font-display text-3xl transition hover:text-foreground"
             >
               {t.nav[id]}
             </a>
@@ -95,7 +95,7 @@ export function Header() {
             <a
               href="/resume.pdf"
               download
-              className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-foreground bg-foreground px-4 text-xs font-medium uppercase tracking-[0.18em] text-background"
+              className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-foreground bg-foreground px-4 text-xs font-medium uppercase tracking-[0.18em] text-background transition hover:bg-transparent hover:text-foreground"
             >
               <Download className="size-3.5" />
               {t.nav.resume}

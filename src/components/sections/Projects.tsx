@@ -21,7 +21,7 @@ export function Projects() {
     <section id="projects" className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-32">
       <SectionLabel eyebrow={t.projects.eyebrow} title={t.projects.title} />
 
-      <div className="mb-12 flex flex-wrap gap-2">
+      <div className="mb-12 flex flex-wrap gap-2 justify-center md:justify-start">
         {categories.map((c) => (
           <button
             key={c}
@@ -31,7 +31,7 @@ export function Projects() {
               "inline-flex rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] transition",
               active === c
                 ? "border-foreground bg-foreground text-background"
-                : "border-border text-muted-foreground hover:text-foreground",
+                : "border-border text-muted-foreground hover:text-foreground hover:border-foreground",
             ].join(" ")}
           >
             {c}
@@ -39,45 +39,45 @@ export function Projects() {
         ))}
       </div>
 
-      <ul className="border-t border-border">
+      <div className="space-y-3">
         {visible.map((p, i) => (
-          <motion.li
+          <motion.div
             key={p.slug}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.05 }}
-            className="group border-b border-border"
+            className="rounded-lg border border-border bg-card/30 transition hover:bg-card/50 hover:border-foreground/30"
           >
             <Link
               to="/projects/$slug"
               params={{ slug: p.slug }}
-              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 py-6 transition hover:bg-card/50 md:grid-cols-12 md:py-8"
+              className="group flex flex-col gap-4 p-6 md:p-8 md:grid md:grid-cols-12 md:items-center"
             >
               <span className="text-xs text-muted-foreground md:col-span-1">
                 0{i + 1}
               </span>
-              <span className="min-w-0 md:col-span-5">
-                <span className="block truncate font-display text-2xl leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1 sm:text-3xl md:text-5xl">
+              <div className="md:col-span-5">
+                <span className="block font-display text-2xl leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1 sm:text-3xl md:text-3xl">
                   {p.name}
                 </span>
-                <span className="mt-1 block text-xs text-muted-foreground md:hidden">
+                <span className="mt-2 block text-xs text-muted-foreground md:hidden">
                   {p.summary} · {p.year}
                 </span>
-              </span>
+              </div>
               <span className="hidden text-sm text-muted-foreground md:col-span-4 md:block">
                 {p.summary}
               </span>
-              <span className="hidden text-end text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-1 md:block">
+              <span className="hidden text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-1 md:block">
                 {p.year}
               </span>
-              <span className="flex shrink-0 items-center justify-end md:col-span-1">
+              <span className="flex items-center justify-start md:col-span-1 md:justify-end">
                 <ArrowUpRight className="size-5 text-muted-foreground transition group-hover:text-foreground" />
               </span>
             </Link>
-          </motion.li>
+          </motion.div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

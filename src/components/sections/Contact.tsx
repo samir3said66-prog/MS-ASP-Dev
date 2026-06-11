@@ -68,52 +68,54 @@ export function Contact() {
           </div>
         </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-6 md:col-span-7"
-          noValidate
-        >
-          <Field label={t.contact.name} error={errors.name?.message}>
-            <input
-              {...register("name")}
-              type="text"
-              autoComplete="name"
-              className="w-full border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-foreground"
-            />
-          </Field>
-          <Field label={t.contact.email} error={errors.email?.message}>
-            <input
-              {...register("email")}
-              type="email"
-              autoComplete="email"
-              className="w-full border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-foreground"
-            />
-          </Field>
-          <Field label={t.contact.message} error={errors.message?.message}>
-            <textarea
-              {...register("message")}
-              rows={5}
-              className="w-full resize-none border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-foreground"
-            />
-          </Field>
+        <div className="rounded-2xl border border-border bg-card/50 p-8 backdrop-blur-sm md:col-span-7">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6"
+            noValidate
+          >
+            <Field label={t.contact.name} error={errors.name?.message}>
+              <input
+                {...register("name")}
+                type="text"
+                autoComplete="name"
+                className="w-full rounded-lg border border-border bg-background/80 px-4 py-3 text-lg outline-none transition focus:border-foreground focus:bg-background"
+              />
+            </Field>
+            <Field label={t.contact.email} error={errors.email?.message}>
+              <input
+                {...register("email")}
+                type="email"
+                autoComplete="email"
+                className="w-full rounded-lg border border-border bg-background/80 px-4 py-3 text-lg outline-none transition focus:border-foreground focus:bg-background"
+              />
+            </Field>
+            <Field label={t.contact.message} error={errors.message?.message}>
+              <textarea
+                {...register("message")}
+                rows={5}
+                className="w-full rounded-lg border border-border bg-background/80 px-4 py-3 text-lg outline-none transition focus:border-foreground focus:bg-background resize-none"
+              />
+            </Field>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="group inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background transition hover:bg-foreground/90 disabled:opacity-50"
-            >
-              {status === "sending" ? t.contact.sending : t.contact.send}
-              <ArrowRight className="size-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
-            </button>
-            {status === "sent" && (
-              <p className="text-sm text-muted-foreground">{t.contact.sent}</p>
-            )}
-            {status === "error" && (
-              <p className="text-sm text-destructive">{t.contact.error}</p>
-            )}
-          </div>
-        </form>
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="group inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background transition hover:bg-foreground/90 disabled:opacity-50"
+              >
+                {status === "sending" ? t.contact.sending : t.contact.send}
+                <ArrowRight className="size-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+              </button>
+              {status === "sent" && (
+                <p className="text-sm text-muted-foreground">{t.contact.sent}</p>
+              )}
+              {status === "error" && (
+                <p className="text-sm text-destructive">{t.contact.error}</p>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );
@@ -133,7 +135,7 @@ function Field({
       <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </span>
-      <div className="mt-1">{children}</div>
+      <div className="mt-2">{children}</div>
       {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
     </label>
   );
