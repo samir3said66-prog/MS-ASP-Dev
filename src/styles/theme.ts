@@ -21,11 +21,12 @@ export const BORDERS = {
 
 export const FONTS = {
   // Heading/Display sizes with Jim Nightshade font - optimized for readability
-  displayXl: "font-title text-6xl md:text-7xl leading-tight",
-  displayLg: "font-title text-4xl md:text-5xl leading-tight",
-  displayMd: "font-title text-3xl md:text-4xl leading-tight",
-  displaySm: "font-title text-2xl md:text-3xl leading-snug",
-  displayXs: "font-title text-xl md:text-2xl leading-snug",
+  // All displayX* sizes use font-title (Jim Nightshade)
+  displayXl: "font-title text-6xl md:text-7xl leading-tight tracking-tight",
+  displayLg: "font-title text-4xl md:text-5xl leading-tight tracking-tight",
+  displayMd: "font-title text-3xl md:text-4xl leading-tight tracking-tight",
+  displaySm: "font-title text-2xl md:text-3xl leading-snug tracking-tight",
+  displayXs: "font-title text-xl md:text-2xl leading-snug tracking-tight",
   
   // Body text sizes - optimized for readability
   bodyXl: "text-xl md:text-2xl leading-relaxed",

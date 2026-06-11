@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { FONTS, COLORS } from "@/styles/theme";
 
 export function SectionLabel({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
@@ -8,7 +9,7 @@ export function SectionLabel({ eyebrow, title }: { eyebrow: string; title: strin
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.5 }}
-        className="text-xs uppercase tracking-[0.3em] text-muted-foreground md:col-span-3"
+        className={`${FONTS.labelSm} ${COLORS.textMuted} md:col-span-3`}
       >
         — {eyebrow}
       </motion.p>
@@ -17,7 +18,7 @@ export function SectionLabel({ eyebrow, title }: { eyebrow: string; title: strin
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="font-display text-5xl leading-[1] tracking-tight md:col-span-9 md:text-7xl"
+        className={`${FONTS.displayLg} md:col-span-9`}
       >
         {title}
       </motion.h2>
