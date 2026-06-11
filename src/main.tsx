@@ -55,7 +55,7 @@ const rootElement = document.getElementById("root");
 initializeTheme();
 initializeLocale();
 
-if (rootElement && !rootElement.innerHTML) {
+if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
