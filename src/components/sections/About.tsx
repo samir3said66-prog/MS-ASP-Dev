@@ -26,7 +26,7 @@ export function About() {
       <div className={`mt-20 grid grid-cols-1 gap-px overflow-hidden ${BORDERS.rounded2xl} ${BORDERS.borderBase} md:grid-cols-3`}>
         {t.about.stats.map((s) => (
           <div key={s.label} className={`bg-card ${SPACING.cardPadding}`}>
-            <div className="inline-flex items-center justify-center min-w-20 px-4 py-2 rounded-full bg-muted/40">
+            <div className="inline-flex items-center justify-center min-w-20 px-4 py-2 rounded-full bg-muted/40 border border-border/60 hover:border-foreground/30 transition-colors">
               <p className={FONTS.displayXl}>{s.value}</p>
             </div>
             <p className={`mt-3 ${FONTS.labelMd} ${COLORS.textMuted}`}>
