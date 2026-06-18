@@ -5,6 +5,7 @@ import { ArrowUpRight, LayoutGrid, Search, X } from "lucide-react";
 import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
 import { SPACING, COLORS, ANIMATIONS, BORDERS, FONTS, COMPONENTS } from "@/styles/theme";
+import { ProjectThumbnail } from "@/components/ui/ProjectThumbnail";
 
 /** Derive frontend + backend tech tags from a Full Stack project's summary. */
 function getStackTags(category: string, summary: string): string[] {
@@ -16,7 +17,6 @@ function getStackTags(category: string, summary: string): string[] {
   return tags;
 }
 
-/** Small pill badge used to label frontend/backend tech. */
 function StackBadge({ label, kind }: { label: string; kind: "fe" | "be" }) {
   return (
     <span
@@ -36,7 +36,7 @@ function StackTags({ category, summary }: { category: string; summary: string })
   const tags = getStackTags(category, summary);
   if (!tags.length) return null;
   return (
-    <div className="mt-1.5 flex flex-wrap gap-1">
+    <div className="mt-2 flex flex-wrap gap-1">
       {tags.map((t, i) => (
         <StackBadge key={t} label={t} kind={i === 0 ? "fe" : "be"} />
       ))}
@@ -61,7 +61,6 @@ export function Projects() {
     return out;
   }, [items]);
 
-  // All categories shown — no slice so Full Stack is not cut off
   const filterPills = [allCategoryLabel, ...uniqueCategories];
 
   const [active, setActive] = useState(allCategoryLabel);
@@ -88,7 +87,6 @@ export function Projects() {
     });
   }, [items, modalFilter, search, allCategoryLabel]);
 
-  // Escape to close + body scroll lock
   useEffect(() => {
     if (!modalOpen) return;
     const handler = (e: KeyboardEvent) => {
@@ -108,7 +106,7 @@ export function Projects() {
       <section id="projects" className={`mx-auto max-w-7xl ${SPACING.section}`}>
         <SectionLabel eyebrow={t.projects.eyebrow} title={t.projects.title} />
 
-        {/* Filter pills — All + every unique category */}
+        {/* Filter pills */}
         <div className="mb-12 flex flex-wrap gap-2 justify-center md:justify-start">
           {filterPills.map((c) => (
             <button
@@ -124,52 +122,62 @@ export function Projects() {
           ))}
         </div>
 
-        {/* 3 project rows */}
-        <div className="space-y-3">
+        {/* Project cards — 3-column grid with thumbnail image */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {sectionItems.map((p, i) => (
             <motion.div
               key={p.slug}
               {...ANIMATIONS.cardIn}
-              transition={{ ...ANIMATIONS.cardIn.transition, delay: i * 0.05 }}
-              className={`${BORDERS.roundedLg} ${BORDERS.borderTransparent} ${COLORS.bgCardLight} transition ${COLORS.bgCardHover}`}
+              transition={{ ...ANIMATIONS.cardIn.transition, delay: i * 0.07 }}
             >
               <Link
                 to="/projects/$slug"
                 params={{ slug: p.slug }}
-                className="group flex flex-col gap-4 p-6 md:p-8 md:grid md:grid-cols-12 md:items-center"
+                className={`group flex flex-col overflow-hidden ${BORDERS.roundedXl} border border-border/50 bg-card/40 hover:bg-card/80 transition-colors duration-300`}
               >
-                <span className={`${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1`}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                {/* Thumbnail */}
+                <ProjectThumbnail
+                  name={p.name}
+                  category={p.category}
+                  slug={p.slug}
+                  className="aspect-[16/9] w-full"
+                />
 
-                <div className="md:col-span-5">
-                  <span
-                    className={`${FONTS.displayMd} leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1`}
+                {/* Card body */}
+                <div className="flex flex-1 flex-col gap-3 p-5">
+                  {/* Category + year row */}
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`inline-flex rounded-full border border-border/50 bg-background/60 px-2.5 py-0.5 ${FONTS.labelXs} ${COLORS.textMuted}`}
+                    >
+                      {p.category}
+                    </span>
+                    <span className={`${FONTS.labelXs} ${COLORS.textMuted}`}>{p.year}</span>
+                  </div>
+
+                  {/* Name */}
+                  <h3
+                    className={`${FONTS.displaySm} leading-tight transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5`}
                   >
                     {p.name}
-                  </span>
-                  {/* Stack tags below the title for Full Stack projects */}
-                  <StackTags category={p.category} summary={p.summary} />
-                  <span className={`mt-2 block ${FONTS.bodyXs} ${COLORS.textMuted} md:hidden`}>
-                    {p.summary} · {p.year}
-                  </span>
-                </div>
+                  </h3>
 
-                <span
-                  className={`hidden ${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-4 md:block`}
-                >
-                  {p.summary}
-                </span>
-                <span
-                  className={`hidden ${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1 md:block`}
-                >
-                  {p.year}
-                </span>
-                <span className="flex items-center justify-start md:col-span-1 md:justify-end">
-                  <ArrowUpRight
-                    className={`size-5 ${COLORS.textMuted} transition group-hover:${COLORS.textBase}`}
-                  />
-                </span>
+                  {/* Stack tags for Full Stack */}
+                  <StackTags category={p.category} summary={p.summary} />
+
+                  {/* Summary */}
+                  <p className={`line-clamp-2 flex-1 ${FONTS.bodyXs} ${COLORS.textMuted}`}>
+                    {p.summary}
+                  </p>
+
+                  {/* Footer link */}
+                  <div
+                    className={`mt-1 flex items-center gap-1 ${FONTS.labelXs} ${COLORS.textMuted} transition group-hover:${COLORS.textBase}`}
+                  >
+                    View project
+                    <ArrowUpRight className="size-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
               </Link>
             </motion.div>
           ))}
@@ -190,10 +198,6 @@ export function Projects() {
 
       {/* ─── Modal ───────────────────────────────────────────── */}
       {modalOpen && (
-        /*
-         * Outer div: true viewport centering with `items-center justify-center`.
-         * NO overflow-y-auto here — the modal itself clips and scrolls internally.
-         */
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
           {/* Backdrop */}
           <div
@@ -201,10 +205,7 @@ export function Projects() {
             onClick={() => setModalOpen(false)}
           />
 
-          {/*
-           * Dialog: flex column, capped at 90 dvh.
-           * Only the table body gets overflow-y-auto — header + filter + footer stay fixed.
-           */}
+          {/* Dialog */}
           <div className="relative z-10 flex w-full max-w-5xl flex-col rounded-2xl border border-border bg-background shadow-2xl max-h-[90dvh]">
 
             {/* ── Sticky header ── */}
@@ -225,7 +226,7 @@ export function Projects() {
               </button>
             </div>
 
-            {/* ── Sticky search + category filter ── */}
+            {/* ── Sticky search + filter ── */}
             <div className="flex flex-shrink-0 flex-col gap-3 border-b border-border px-6 py-4 md:flex-row md:items-center">
               <div className="relative flex-1">
                 <Search className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -238,7 +239,7 @@ export function Projects() {
                 />
               </div>
               <div className="flex flex-wrap gap-2">
-                {[allCategoryLabel, ...uniqueCategories].map((c) => (
+                {filterPills.map((c) => (
                   <button
                     key={c}
                     type="button"
@@ -255,12 +256,14 @@ export function Projects() {
               </div>
             </div>
 
-            {/* ── Scrollable table — only this region scrolls ── */}
+            {/* ── Scrollable table ── */}
             <div className="scrollbar-slim flex-1 overflow-y-auto overflow-x-auto">
               <table className="w-full">
                 <thead className="sticky top-0 z-10 border-b border-border bg-background">
                   <tr>
-                    <th className={`${COMPONENTS.tableHeader} w-14 ps-6`}>#</th>
+                    <th className={`${COMPONENTS.tableHeader} w-14 ps-4`}>
+                      {/* thumbnail column */}
+                    </th>
                     <th className={COMPONENTS.tableHeader}>Project</th>
                     <th className={`${COMPONENTS.tableHeader} hidden md:table-cell w-36`}>
                       Category
@@ -272,17 +275,23 @@ export function Projects() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/40">
-                  {modalItems.map((p, i) => {
+                  {modalItems.map((p) => {
                     const stackTags = getStackTags(p.category, p.summary);
                     return (
                       <tr key={p.slug} className="transition hover:bg-card/30">
-                        <td className={`ps-6 py-4 ${FONTS.labelXs} ${COLORS.textMuted}`}>
-                          {String(i + 1).padStart(2, "0")}
+                        {/* Thumbnail cell */}
+                        <td className="ps-4 py-3">
+                          <ProjectThumbnail
+                            name={p.name}
+                            category={p.category}
+                            slug={`modal-${p.slug}`}
+                            className="size-10 rounded-lg flex-shrink-0"
+                          />
                         </td>
 
-                        <td className="px-4 py-4">
+                        {/* Name + summary */}
+                        <td className="px-4 py-3">
                           <div className={`${FONTS.displayXs} leading-snug`}>{p.name}</div>
-                          {/* Stack tags for Full Stack rows */}
                           {stackTags.length > 0 && (
                             <div className="mt-1 flex flex-wrap gap-1">
                               {stackTags.map((tag, ti) => (
@@ -302,7 +311,8 @@ export function Projects() {
                           </div>
                         </td>
 
-                        <td className="hidden px-4 py-4 md:table-cell">
+                        {/* Category badge */}
+                        <td className="hidden px-4 py-3 md:table-cell">
                           <span
                             className={`inline-flex rounded-full border border-border/60 bg-card/40 px-2.5 py-1 ${FONTS.labelXs}`}
                           >
@@ -310,13 +320,15 @@ export function Projects() {
                           </span>
                         </td>
 
+                        {/* Year */}
                         <td
-                          className={`hidden px-4 py-4 ${FONTS.labelXs} ${COLORS.textMuted} md:table-cell`}
+                          className={`hidden px-4 py-3 ${FONTS.labelXs} ${COLORS.textMuted} md:table-cell`}
                         >
                           {p.year}
                         </td>
 
-                        <td className="px-4 py-4">
+                        {/* Open link */}
+                        <td className="px-4 py-3">
                           <Link
                             to="/projects/$slug"
                             params={{ slug: p.slug }}
@@ -350,7 +362,7 @@ export function Projects() {
                 {modalItems.length} of {items.length} project
                 {items.length !== 1 ? "s" : ""}
               </span>
-              {search || modalFilter !== allCategoryLabel ? (
+              {(search || modalFilter !== allCategoryLabel) && (
                 <button
                   type="button"
                   onClick={() => {
@@ -361,7 +373,7 @@ export function Projects() {
                 >
                   Clear filters
                 </button>
-              ) : null}
+              )}
             </div>
           </div>
         </div>

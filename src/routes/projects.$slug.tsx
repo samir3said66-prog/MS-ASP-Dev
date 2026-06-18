@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { useT } from "@/i18n/useT";
 import { en } from "@/i18n/dictionaries";
 import { FONTS, COLORS, BORDERS } from "@/styles/theme";
+import { ProjectThumbnail } from "@/components/ui/ProjectThumbnail";
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }) => {
@@ -119,7 +120,12 @@ function ProjectDetail() {
           </p>
         </div>
 
-        <div className="mt-20 aspect-[16/9] rounded-2xl border border-border bg-card" />
+        <ProjectThumbnail
+          name={project.name}
+          category={project.category}
+          slug={project.slug}
+          className="mt-20 aspect-[16/9] w-full rounded-2xl overflow-hidden"
+        />
       </article>
       <Footer />
     </>
