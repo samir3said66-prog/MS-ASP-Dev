@@ -47,9 +47,19 @@ export function Hero() {
               className="flex-1 flex flex-col gap-4"
             >
               <div className="group relative overflow-hidden rounded-2xl bg-card/50 hover:bg-card transition-colors duration-300 flex-1">
+                {/*
+                  LCP element — fetchPriority="high" signals to the browser to load this
+                  as the highest-priority resource. width/height prevent layout shift (CLS).
+                  loading="eager" is explicit (default, but clearer for LCP audits).
+                */}
                 <img
                   src="/MS.jpg"
-                  alt="Pragmatic systems shipped on ASP.NET Core"
+                  alt="Mostafa Samir — Full-Stack .NET & React Developer"
+                  width={400}
+                  height={500}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover opacity-100 group-hover:opacity-20 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

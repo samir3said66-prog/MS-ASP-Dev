@@ -17,14 +17,18 @@ export default defineConfig({
       },
     },
   ],
+
   server: {
     host: "0.0.0.0",
     port: 5000,
     allowedHosts: true,
   },
+
   build: {
     outDir: "dist",
     emptyOutDir: true,
+    // Raise the warning limit — Three.js + Framer Motion are inherently large
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       input: "index.html",
       external: [
@@ -36,8 +40,15 @@ export default defineConfig({
         "node:fs",
       ],
       output: {
-        paths: {
-          "node:*": "[name]",
+        paths: { "node:*": "[name]" },
+        // Manual vendor chunk splitting — separate only the two heaviest libs
+        // (three.js ~730 kB, framer-motion ~32 kB) so users can cache them
+        // independently. Everything else (react, tanstack, lucide, etc.) stays
+        // in one "vendor" chunk to avoid circular-dependency warnings.
+        manualChunks(id) {
+          if (id.includes("node_modules/three")) return "vendor-three";
+          if (id.includes("node_modules/framer-motion")) return "vendor-framer";
+          if (id.includes("node_modules/")) return "vendor";
         },
       },
     },
@@ -45,14 +56,13 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
   },
+
   resolve: {
     alias: {
       "@": "/src",
     },
   },
-  define: {
-    "process.env.NODE_ENV": '"production"',
-  },
+
   optimizeDeps: {
     exclude: ["@tanstack/start-storage-context"],
     esbuildOptions: {

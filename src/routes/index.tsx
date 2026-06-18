@@ -9,24 +9,61 @@ import { Experience } from "@/components/sections/Experience";
 import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 
+const TITLE = "Mostafa Samir — Full-Stack .NET & React Developer";
+const DESCRIPTION =
+  "Full-Stack Software Developer with 4+ years building secure, scalable .NET 8 and React/TypeScript applications. Based in Tanta, Egypt — working globally.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your Name — Editorial Portfolio" },
-      {
-        name: "description",
-        content:
-          "Bilingual portfolio of a senior product engineer. Selected work, experience, and a way to get in touch.",
-      },
-      { property: "og:title", content: "Your Name — Editorial Portfolio" },
-      {
-        property: "og:description",
-        content:
-          "Bilingual portfolio of a senior product engineer. Selected work, experience, and a way to get in touch.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      // Open Graph
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: "/" },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "/MS.jpg" },
+      // Twitter
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
+      { name: "twitter:image", content: "/MS.jpg" },
     ],
     links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Mostafa Samir",
+          jobTitle: "Full-Stack Software Developer",
+          description: DESCRIPTION,
+          url: "/",
+          email: "m.ssaid356@gmail.com",
+          telephone: "+201067358073",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tanta",
+            addressCountry: "EG",
+          },
+          knowsAbout: [
+            ".NET 8",
+            "ASP.NET Core",
+            "C#",
+            "React",
+            "TypeScript",
+            "SQL Server",
+            "Microservices",
+          ],
+          sameAs: [
+            "https://github.com/Mostafa-SAID7",
+            "https://www.linkedin.com/in/mostafasamirsaid",
+          ],
+        }),
+      },
+    ],
   }),
   component: Index,
 });

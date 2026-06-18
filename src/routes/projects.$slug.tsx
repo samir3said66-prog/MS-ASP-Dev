@@ -17,17 +17,26 @@ export const Route = createFileRoute("/projects/$slug")({
     const title = project
       ? `${project.name} — Mostafa Samir`
       : "Project — Mostafa Samir";
-    const description = project?.summary ?? "Selected project.";
+    const description = project?.summary ?? "A selected project by Mostafa Samir.";
+    const url = `/projects/${params.slug}`;
+
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        // Open Graph
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/projects/${params.slug}` },
+        { property: "og:url", content: url },
+        { property: "og:image", content: "/MS.jpg" },
+        // Twitter
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "/MS.jpg" },
       ],
-      links: [{ rel: "canonical", href: `/projects/${params.slug}` }],
+      links: [{ rel: "canonical", href: url }],
       scripts: project
         ? [
             {
@@ -41,6 +50,7 @@ export const Route = createFileRoute("/projects/$slug")({
                 creator: {
                   "@type": "Person",
                   name: "Mostafa Samir",
+                  url: "/",
                 },
               }),
             },
