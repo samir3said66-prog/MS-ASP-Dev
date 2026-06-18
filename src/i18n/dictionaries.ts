@@ -475,6 +475,8 @@ export const en = {
     direct: "Or write directly:",
   },
   footer: {
+    tagline: "Let's build\nsomething quiet.",
+    colophonLabel: "Colophon",
     colophon: "Set in Jim Nightshade & Italianno · Tajawal for Arabic. Frontend built with React 19 and Vite. APIs in this portfolio are mocked — the real ones run on ASP.NET Core 8.",
     rights: "© 2026 — All rights reserved.",
   },
@@ -972,7 +974,9 @@ export const ar: Dictionary = {
     direct: "أو راسل مباشرة:",
   },
   footer: {
-    colophon: "بخطّ ‎Instrument Serif‎ و ‎Work Sans‎ · و ‎Tajawal‎ للعربية. الواجهة مبنيّة بـ ‎React 19‎ و ‎TanStack Start‎. الواجهات الحقيقية تعمل على ‎ASP.NET Core 8‎.",
+    tagline: "لنبني\nشيئاً هادئاً.",
+    colophonLabel: "ملاحظات",
+    colophon: "بخطّ ‎Jim Nightshade‎ و ‎Italianno‎ · و ‎Tajawal‎ للعربية. الواجهة مبنيّة بـ ‎React 19‎ و ‎Vite‎. الواجهات الحقيقية تعمل على ‎ASP.NET Core 8‎.",
     rights: "© ٢٠٢٦ — جميع الحقوق محفوظة.",
   },
   toggle: {

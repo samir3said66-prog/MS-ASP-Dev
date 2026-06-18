@@ -9,7 +9,6 @@ import { SPACING, COLORS, ANIMATIONS, BORDERS, FONTS, COMPONENTS } from "@/style
 export function Projects() {
   const t = useT();
   const items = t.projects.items;
-
   const allCategoryLabel = t.projects.all;
 
   const uniqueCategories = useMemo(() => {
@@ -32,7 +31,8 @@ export function Projects() {
   const [modalFilter, setModalFilter] = useState(allCategoryLabel);
 
   const sectionItems = useMemo(() => {
-    const base = active === allCategoryLabel ? items : items.filter((p) => p.category === active);
+    const base =
+      active === allCategoryLabel ? items : items.filter((p) => p.category === active);
     return base.slice(0, 3);
   }, [items, active, allCategoryLabel]);
 
@@ -72,24 +72,23 @@ export function Projects() {
       <section id="projects" className={`mx-auto max-w-7xl ${SPACING.section}`}>
         <SectionLabel eyebrow={t.projects.eyebrow} title={t.projects.title} />
 
+        {/* Filter pills — All + first 3 categories */}
         <div className="mb-12 flex flex-wrap gap-2 justify-center md:justify-start">
           {filterPills.map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => setActive(c)}
-              className={[
-                "inline-flex rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] transition",
-                active === c
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground",
-              ].join(" ")}
+              className={`${COMPONENTS.filterPill} ${
+                active === c ? COMPONENTS.filterPillActive : COMPONENTS.filterPillInactive
+              }`}
             >
               {c}
             </button>
           ))}
         </div>
 
+        {/* 3 project rows */}
         <div className="space-y-3">
           {sectionItems.map((p, i) => (
             <motion.div
@@ -107,35 +106,28 @@ export function Projects() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="md:col-span-5">
-                  <span
-                    className={`${FONTS.displayMd} leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1`}
-                  >
+                  <span className={`${FONTS.displayMd} leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1`}>
                     {p.name}
                   </span>
                   <span className={`mt-2 block ${FONTS.bodyXs} ${COLORS.textMuted} md:hidden`}>
                     {p.summary} · {p.year}
                   </span>
                 </div>
-                <span
-                  className={`hidden ${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-4 md:block`}
-                >
+                <span className={`hidden ${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-4 md:block`}>
                   {p.summary}
                 </span>
-                <span
-                  className={`hidden ${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1 md:block`}
-                >
+                <span className={`hidden ${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1 md:block`}>
                   {p.year}
                 </span>
                 <span className="flex items-center justify-start md:col-span-1 md:justify-end">
-                  <ArrowUpRight
-                    className={`size-5 ${COLORS.textMuted} transition group-hover:${COLORS.textBase}`}
-                  />
+                  <ArrowUpRight className={`size-5 ${COLORS.textMuted} transition group-hover:${COLORS.textBase}`} />
                 </span>
               </Link>
             </motion.div>
           ))}
         </div>
 
+        {/* See All button */}
         <div className="mt-10 flex justify-center">
           <button
             type="button"
@@ -148,6 +140,7 @@ export function Projects() {
         </div>
       </section>
 
+      {/* ─── Modal ─── */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 py-12 md:p-8 md:py-16">
           <div
@@ -156,18 +149,20 @@ export function Projects() {
           />
 
           <div className="relative z-10 flex w-full max-w-5xl flex-col rounded-2xl border border-border bg-background shadow-2xl">
+            {/* Header */}
             <div className="flex items-center justify-between border-b border-border px-6 py-5">
-              <h2 className={`${FONTS.displaySm}`}>All Projects</h2>
+              <h2 className={FONTS.displaySm}>All Projects</h2>
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
                 aria-label="Close"
-                className="inline-flex size-9 items-center justify-center rounded-full border border-border transition hover:bg-card"
+                className={COMPONENTS.toggleButton}
               >
                 <X className="size-4" />
               </button>
             </div>
 
+            {/* Search + filter */}
             <div className="flex flex-col gap-3 border-b border-border px-6 py-4 md:flex-row md:items-center">
               <div className="relative flex-1">
                 <Search className="absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
@@ -185,12 +180,11 @@ export function Projects() {
                     key={c}
                     type="button"
                     onClick={() => setModalFilter(c)}
-                    className={[
-                      "inline-flex rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.15em] transition",
+                    className={`${COMPONENTS.filterPill} ${
                       modalFilter === c
-                        ? "border-foreground bg-foreground text-background"
-                        : "border-border text-muted-foreground hover:text-foreground hover:border-foreground",
-                    ].join(" ")}
+                        ? COMPONENTS.filterPillActive
+                        : COMPONENTS.filterPillInactive
+                    }`}
                   >
                     {c}
                   </button>
@@ -198,31 +192,22 @@ export function Projects() {
               </div>
             </div>
 
+            {/* Table */}
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="border-b border-border bg-card/30">
                   <tr>
-                    <th className="px-6 py-3 text-start text-xs uppercase tracking-[0.18em] text-muted-foreground w-14">
-                      #
-                    </th>
-                    <th className="px-4 py-3 text-start text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                      Project
-                    </th>
-                    <th className="hidden px-4 py-3 text-start text-xs uppercase tracking-[0.18em] text-muted-foreground md:table-cell">
-                      Category
-                    </th>
-                    <th className="hidden px-4 py-3 text-start text-xs uppercase tracking-[0.18em] text-muted-foreground md:table-cell w-20">
-                      Year
-                    </th>
-                    <th className="px-4 py-3 text-start text-xs uppercase tracking-[0.18em] text-muted-foreground w-20">
-                      View
-                    </th>
+                    <th className={`${COMPONENTS.tableHeader} w-14 ps-6`}>#</th>
+                    <th className={COMPONENTS.tableHeader}>Project</th>
+                    <th className={`${COMPONENTS.tableHeader} hidden md:table-cell`}>Category</th>
+                    <th className={`${COMPONENTS.tableHeader} hidden md:table-cell w-20`}>Year</th>
+                    <th className={`${COMPONENTS.tableHeader} w-20`}>View</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/40">
                   {modalItems.map((p, i) => (
                     <tr key={p.slug} className="transition hover:bg-card/30">
-                      <td className={`px-6 py-4 ${FONTS.labelXs} ${COLORS.textMuted}`}>
+                      <td className={`ps-6 py-4 ${FONTS.labelXs} ${COLORS.textMuted}`}>
                         {String(i + 1).padStart(2, "0")}
                       </td>
                       <td className="px-4 py-4">
@@ -235,9 +220,7 @@ export function Projects() {
                         </div>
                       </td>
                       <td className="hidden px-4 py-4 md:table-cell">
-                        <span
-                          className={`inline-flex rounded-full border border-border/60 bg-card/40 px-2.5 py-1 ${FONTS.labelXs}`}
-                        >
+                        <span className={`inline-flex rounded-full border border-border/60 bg-card/40 px-2.5 py-1 ${FONTS.labelXs}`}>
                           {p.category}
                         </span>
                       </td>
@@ -258,10 +241,7 @@ export function Projects() {
                   ))}
                   {modalItems.length === 0 && (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className={`px-6 py-16 text-center ${FONTS.bodySm} ${COLORS.textMuted}`}
-                      >
+                      <td colSpan={5} className={`px-6 py-16 text-center ${FONTS.bodySm} ${COLORS.textMuted}`}>
                         No projects match your search.
                       </td>
                     </tr>
@@ -270,6 +250,7 @@ export function Projects() {
               </table>
             </div>
 
+            {/* Footer */}
             <div className="border-t border-border px-6 py-3">
               <span className={`${FONTS.labelXs} ${COLORS.textMuted}`}>
                 {modalItems.length} project{modalItems.length !== 1 ? "s" : ""} shown

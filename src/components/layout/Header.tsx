@@ -37,7 +37,7 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-10">
         <a
-          href="#top"
+          href="/"
           className={`${FONTS.displayXs} leading-none`}
           aria-label="Home"
         >

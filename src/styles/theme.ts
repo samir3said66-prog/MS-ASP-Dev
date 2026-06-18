@@ -1,6 +1,7 @@
 /**
- * Centralized theme styles configuration
- * Eliminates duplication and ensures consistency across all components
+ * Centralized theme styles — single source of truth for all components.
+ * Paper & Ink design system: headings → font-title (Jim Nightshade),
+ * body text → font-accent (Italianno), labels → font-accent.
  */
 
 export const SPACING = {
@@ -20,53 +21,54 @@ export const BORDERS = {
 } as const;
 
 export const FONTS = {
-  // HEADING SIZES - Jim Nightshade (font-title)
-  // All display sizes use font-title for consistent heading styling
+  // HEADINGS — Jim Nightshade (font-title)
   displayXl: "font-title text-6xl md:text-7xl leading-tight tracking-tight",
   displayLg: "font-title text-4xl md:text-5xl leading-tight tracking-tight",
   displayMd: "font-title text-3xl md:text-4xl leading-tight tracking-tight",
   displaySm: "font-title text-2xl md:text-3xl leading-snug tracking-tight",
   displayXs: "font-title text-xl md:text-2xl leading-snug tracking-tight",
-  
-  // BODY TEXT - Italianno (font-accent) for all body content
-  // Used for main prose, descriptions, and body text throughout
+
+  // BODY TEXT — Italianno (font-accent)
+  // leading-relaxed is included — do NOT add it again in JSX
   bodyXl: "font-accent text-xl md:text-2xl leading-relaxed tracking-[-0.01em]",
   bodyLg: "font-accent text-lg md:text-xl leading-relaxed tracking-[-0.005em]",
   bodyMd: "font-accent text-base md:text-lg leading-relaxed",
   bodySm: "font-accent text-sm md:text-base leading-relaxed",
   bodyXs: "font-accent text-xs md:text-sm",
-  
-  // LABELS & CAPTIONS - Italianno (font-accent) for metadata
-  // For eyebrow text, metadata, and descriptive labels
+
+  // LABELS & CAPTIONS — Italianno (font-accent)
+  // tracking-[0.2em] is included — do NOT add tracking again in JSX
   labelLg: "font-accent text-sm md:text-base uppercase tracking-[0.2em] font-semibold",
   labelMd: "font-accent text-sm uppercase tracking-[0.18em] font-medium",
   labelSm: "font-accent text-xs md:text-sm uppercase tracking-[0.2em] font-medium",
   labelXs: "font-accent text-xs uppercase tracking-[0.2em]",
   caption: "font-accent text-xs md:text-sm text-muted-foreground",
-  
-  // INPUT/FORM SIZES - Italianno (font-accent)
+
+  // INPUT / FORM
   inputLg: "font-accent text-lg",
   inputMd: "font-accent text-base",
-  
-  // BUTTON TEXT - Italianno (font-accent)
+
+  // BUTTON TEXT
   buttonSm: "font-accent text-xs md:text-sm font-semibold uppercase tracking-[0.18em]",
   buttonMd: "font-accent text-sm font-semibold",
 } as const;
 
 export const COLORS = {
-  // Text colors
+  // Text
   textBase: "text-foreground",
   textMuted: "text-muted-foreground",
+  /** Foreground at 75% opacity — for body prose inside cards */
+  textSubtle: "text-foreground/75",
   textXsLabel: "text-xs uppercase tracking-[0.2em]",
   textSmLabel: "text-sm uppercase tracking-[0.18em]",
-  
-  // Background colors
+
+  // Backgrounds
   bgCard: "bg-card/50",
   bgCardLight: "bg-card/20",
   bgCardHover: "hover:bg-card/30",
   bgMobileMenu: "bg-background/95",
-  
-  // Hover states (consistent across all)
+
+  // Hover state (buttons, badges)
   hoverState: "hover:bg-foreground hover:text-background hover:border-foreground hover:shadow-lg hover:shadow-foreground/20",
 } as const;
 
@@ -92,35 +94,43 @@ export const ANIMATIONS = {
 } as const;
 
 export const GRIDS = {
-  // Layout grids
   sectionLayout: "grid gap-12 md:grid-cols-12",
   mainContent: "grid gap-6 md:grid-cols-12",
-  
-  // Card grids
   cardGrid1Col: "grid gap-4 md:grid-cols-12",
   cardGrid3Col: "grid gap-px overflow-hidden md:grid-cols-3",
 } as const;
 
 export const COMPONENTS = {
-  // Badge/Pill styles
+  // Badge / pill
   badge: `inline-flex ${BORDERS.roundedXl} ${BORDERS.borderTransparent} ${COLORS.bgCard} px-4 py-2.5 ${FONTS.buttonSm} ${COLORS.textBase} transition ${COLORS.hoverState}`,
-  
-  // Card styles
+
+  // Stats value badge (About section)
+  statBadge: `inline-flex items-center justify-center min-w-20 px-4 py-2 rounded-full bg-muted/40 border border-border/60 hover:border-foreground/30 transition-colors`,
+
+  // Filter pill — base + active + inactive variants
+  filterPill: `inline-flex rounded-full border ${FONTS.labelXs} transition`,
+  filterPillActive: "border-foreground bg-foreground text-background px-4 py-2",
+  filterPillInactive: "border-border text-muted-foreground hover:text-foreground hover:border-foreground px-4 py-2",
+
+  // Table header cell
+  tableHeader: `px-4 py-3 text-start ${FONTS.labelXs} ${COLORS.textMuted}`,
+
+  // Card
   card: `rounded-lg border border-border/40 bg-card/30 p-6 md:p-8 transition hover:border-border/80 hover:bg-card/30`,
-  
-  // Button styles
+
+  // Buttons
   buttonPrimary: `inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 ${FONTS.buttonSm} text-background transition hover:bg-foreground/90`,
   buttonSecondary: `inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 ${FONTS.buttonSm} transition hover:bg-foreground hover:text-background`,
-  
-  // Form styles
+
+  // Toggle button (icon-only circular button used in Header)
+  toggleButton: `inline-flex size-10 items-center justify-center rounded-full border border-border/60 bg-background/40 backdrop-blur transition hover:bg-foreground hover:text-background`,
+
+  // Form
   formLabel: `${FONTS.labelXs} ${COLORS.textMuted}`,
   formInput: `w-full ${BORDERS.roundedLg} border border-border bg-background/80 px-4 py-3 ${FONTS.inputLg} outline-none transition focus:border-foreground focus:bg-background`,
   formError: `mt-1 block ${FONTS.bodyXs} text-destructive`,
 } as const;
 
-/**
- * Helper function to combine style classes
- */
-export const cn = (...classes: (string | undefined | false)[]): string => {
-  return classes.filter(Boolean).join(" ");
-};
+/** Utility: merge class strings, filtering falsy values. */
+export const cn = (...classes: (string | undefined | false)[]): string =>
+  classes.filter(Boolean).join(" ");
