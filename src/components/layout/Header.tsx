@@ -48,7 +48,7 @@ export function Header() {
           {SECTIONS.map((id) => (
             <a
               key={id}
-              href={`#${id}`}
+              href={`/#${id}`}
               className={`group relative ${FONTS.labelXs} ${COLORS.textMuted} transition hover:${COLORS.textBase}`}
             >
               {t.nav[id]}
@@ -109,7 +109,7 @@ export function Header() {
                   transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
                 >
                   <a
-                    href={`#${id}`}
+                    href={`/#${id}`}
                     onClick={() => setOpen(false)}
                     className={`block border-b border-border/40 py-4 ${FONTS.displaySm} transition hover:${COLORS.textBase} hover:pl-2 hover:border-foreground/40`}
                   >
