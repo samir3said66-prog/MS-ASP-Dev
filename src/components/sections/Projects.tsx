@@ -6,6 +6,44 @@ import { useT } from "@/i18n/useT";
 import { SectionLabel } from "./SectionLabel";
 import { SPACING, COLORS, ANIMATIONS, BORDERS, FONTS, COMPONENTS } from "@/styles/theme";
 
+/** Derive frontend + backend tech tags from a Full Stack project's summary. */
+function getStackTags(category: string, summary: string): string[] {
+  if (category !== "Full Stack") return [];
+  const tags: string[] = [];
+  if (/angular/i.test(summary)) tags.push("Angular");
+  else if (/react/i.test(summary)) tags.push("React");
+  tags.push("ASP.NET Core");
+  return tags;
+}
+
+/** Small pill badge used to label frontend/backend tech. */
+function StackBadge({ label, kind }: { label: string; kind: "fe" | "be" }) {
+  return (
+    <span
+      className={[
+        "inline-flex items-center rounded border px-1.5 py-px font-accent text-[10px] uppercase tracking-[0.12em]",
+        kind === "fe"
+          ? "border-border/60 bg-card/60 text-muted-foreground"
+          : "border-border/40 bg-background text-muted-foreground/70",
+      ].join(" ")}
+    >
+      {label}
+    </span>
+  );
+}
+
+function StackTags({ category, summary }: { category: string; summary: string }) {
+  const tags = getStackTags(category, summary);
+  if (!tags.length) return null;
+  return (
+    <div className="mt-1.5 flex flex-wrap gap-1">
+      {tags.map((t, i) => (
+        <StackBadge key={t} label={t} kind={i === 0 ? "fe" : "be"} />
+      ))}
+    </div>
+  );
+}
+
 export function Projects() {
   const t = useT();
   const items = t.projects.items;
@@ -23,7 +61,8 @@ export function Projects() {
     return out;
   }, [items]);
 
-  const filterPills = [allCategoryLabel, ...uniqueCategories.slice(0, 3)];
+  // All categories shown — no slice so Full Stack is not cut off
+  const filterPills = [allCategoryLabel, ...uniqueCategories];
 
   const [active, setActive] = useState(allCategoryLabel);
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,11 +74,6 @@ export function Projects() {
       active === allCategoryLabel ? items : items.filter((p) => p.category === active);
     return base.slice(0, 3);
   }, [items, active, allCategoryLabel]);
-
-  const allModalCategories = useMemo(
-    () => [allCategoryLabel, ...uniqueCategories],
-    [allCategoryLabel, uniqueCategories],
-  );
 
   const modalItems = useMemo(() => {
     const q = search.toLowerCase();
@@ -54,6 +88,7 @@ export function Projects() {
     });
   }, [items, modalFilter, search, allCategoryLabel]);
 
+  // Escape to close + body scroll lock
   useEffect(() => {
     if (!modalOpen) return;
     const handler = (e: KeyboardEvent) => {
@@ -69,10 +104,11 @@ export function Projects() {
 
   return (
     <>
+      {/* ─── Section ─────────────────────────────────────────── */}
       <section id="projects" className={`mx-auto max-w-7xl ${SPACING.section}`}>
         <SectionLabel eyebrow={t.projects.eyebrow} title={t.projects.title} />
 
-        {/* Filter pills — All + first 3 categories */}
+        {/* Filter pills — All + every unique category */}
         <div className="mb-12 flex flex-wrap gap-2 justify-center md:justify-start">
           {filterPills.map((c) => (
             <button
@@ -105,22 +141,34 @@ export function Projects() {
                 <span className={`${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1`}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
+
                 <div className="md:col-span-5">
-                  <span className={`${FONTS.displayMd} leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1`}>
+                  <span
+                    className={`${FONTS.displayMd} leading-tight transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1`}
+                  >
                     {p.name}
                   </span>
+                  {/* Stack tags below the title for Full Stack projects */}
+                  <StackTags category={p.category} summary={p.summary} />
                   <span className={`mt-2 block ${FONTS.bodyXs} ${COLORS.textMuted} md:hidden`}>
                     {p.summary} · {p.year}
                   </span>
                 </div>
-                <span className={`hidden ${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-4 md:block`}>
+
+                <span
+                  className={`hidden ${FONTS.bodyMd} ${COLORS.textMuted} md:col-span-4 md:block`}
+                >
                   {p.summary}
                 </span>
-                <span className={`hidden ${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1 md:block`}>
+                <span
+                  className={`hidden ${FONTS.labelXs} ${COLORS.textMuted} md:col-span-1 md:block`}
+                >
                   {p.year}
                 </span>
                 <span className="flex items-center justify-start md:col-span-1 md:justify-end">
-                  <ArrowUpRight className={`size-5 ${COLORS.textMuted} transition group-hover:${COLORS.textBase}`} />
+                  <ArrowUpRight
+                    className={`size-5 ${COLORS.textMuted} transition group-hover:${COLORS.textBase}`}
+                  />
                 </span>
               </Link>
             </motion.div>
@@ -140,18 +188,33 @@ export function Projects() {
         </div>
       </section>
 
-      {/* ─── Modal ─── */}
+      {/* ─── Modal ───────────────────────────────────────────── */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 py-12 md:p-8 md:py-16">
+        /*
+         * Outer div: true viewport centering with `items-center justify-center`.
+         * NO overflow-y-auto here — the modal itself clips and scrolls internally.
+         */
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
+          {/* Backdrop */}
           <div
             className="fixed inset-0 bg-background/80 backdrop-blur-sm"
             onClick={() => setModalOpen(false)}
           />
 
-          <div className="relative z-10 flex w-full max-w-5xl flex-col rounded-2xl border border-border bg-background shadow-2xl">
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-border px-6 py-5">
-              <h2 className={FONTS.displaySm}>All Projects</h2>
+          {/*
+           * Dialog: flex column, capped at 90 dvh.
+           * Only the table body gets overflow-y-auto — header + filter + footer stay fixed.
+           */}
+          <div className="relative z-10 flex w-full max-w-5xl flex-col rounded-2xl border border-border bg-background shadow-2xl max-h-[90dvh]">
+
+            {/* ── Sticky header ── */}
+            <div className="flex flex-shrink-0 items-center justify-between border-b border-border px-6 py-5">
+              <div>
+                <h2 className={FONTS.displaySm}>All Projects</h2>
+                <p className={`mt-0.5 ${FONTS.labelXs} ${COLORS.textMuted}`}>
+                  {items.length} total · {modalItems.length} shown
+                </p>
+              </div>
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
@@ -162,20 +225,20 @@ export function Projects() {
               </button>
             </div>
 
-            {/* Search + filter */}
-            <div className="flex flex-col gap-3 border-b border-border px-6 py-4 md:flex-row md:items-center">
+            {/* ── Sticky search + category filter ── */}
+            <div className="flex flex-shrink-0 flex-col gap-3 border-b border-border px-6 py-4 md:flex-row md:items-center">
               <div className="relative flex-1">
-                <Search className="absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                <Search className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Search projects…"
+                  placeholder="Search by name, category, or description…"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className={`w-full rounded-lg border border-border bg-card/50 ps-9 pe-4 py-2.5 ${FONTS.bodySm} outline-none transition focus:border-foreground`}
                 />
               </div>
               <div className="flex flex-wrap gap-2">
-                {allModalCategories.map((c) => (
+                {[allCategoryLabel, ...uniqueCategories].map((c) => (
                   <button
                     key={c}
                     type="button"
@@ -192,56 +255,87 @@ export function Projects() {
               </div>
             </div>
 
-            {/* Table */}
-            <div className="overflow-x-auto">
+            {/* ── Scrollable table — only this region scrolls ── */}
+            <div className="scrollbar-slim flex-1 overflow-y-auto overflow-x-auto">
               <table className="w-full">
-                <thead className="border-b border-border bg-card/30">
+                <thead className="sticky top-0 z-10 border-b border-border bg-background">
                   <tr>
                     <th className={`${COMPONENTS.tableHeader} w-14 ps-6`}>#</th>
                     <th className={COMPONENTS.tableHeader}>Project</th>
-                    <th className={`${COMPONENTS.tableHeader} hidden md:table-cell`}>Category</th>
-                    <th className={`${COMPONENTS.tableHeader} hidden md:table-cell w-20`}>Year</th>
+                    <th className={`${COMPONENTS.tableHeader} hidden md:table-cell w-36`}>
+                      Category
+                    </th>
+                    <th className={`${COMPONENTS.tableHeader} hidden md:table-cell w-20`}>
+                      Year
+                    </th>
                     <th className={`${COMPONENTS.tableHeader} w-20`}>View</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/40">
-                  {modalItems.map((p, i) => (
-                    <tr key={p.slug} className="transition hover:bg-card/30">
-                      <td className={`ps-6 py-4 ${FONTS.labelXs} ${COLORS.textMuted}`}>
-                        {String(i + 1).padStart(2, "0")}
-                      </td>
-                      <td className="px-4 py-4">
-                        <div className={`${FONTS.displayXs} leading-snug`}>{p.name}</div>
-                        <div className={`mt-0.5 ${FONTS.bodyXs} ${COLORS.textMuted} line-clamp-1 md:hidden`}>
-                          {p.category} · {p.year}
-                        </div>
-                        <div className={`mt-0.5 ${FONTS.bodyXs} ${COLORS.textMuted} line-clamp-1 hidden md:block`}>
-                          {p.summary}
-                        </div>
-                      </td>
-                      <td className="hidden px-4 py-4 md:table-cell">
-                        <span className={`inline-flex rounded-full border border-border/60 bg-card/40 px-2.5 py-1 ${FONTS.labelXs}`}>
-                          {p.category}
-                        </span>
-                      </td>
-                      <td className={`hidden px-4 py-4 ${FONTS.labelXs} ${COLORS.textMuted} md:table-cell`}>
-                        {p.year}
-                      </td>
-                      <td className="px-4 py-4">
-                        <Link
-                          to="/projects/$slug"
-                          params={{ slug: p.slug }}
-                          onClick={() => setModalOpen(false)}
-                          className={`inline-flex items-center gap-1 ${FONTS.labelXs} ${COLORS.textMuted} transition hover:${COLORS.textBase}`}
+                  {modalItems.map((p, i) => {
+                    const stackTags = getStackTags(p.category, p.summary);
+                    return (
+                      <tr key={p.slug} className="transition hover:bg-card/30">
+                        <td className={`ps-6 py-4 ${FONTS.labelXs} ${COLORS.textMuted}`}>
+                          {String(i + 1).padStart(2, "0")}
+                        </td>
+
+                        <td className="px-4 py-4">
+                          <div className={`${FONTS.displayXs} leading-snug`}>{p.name}</div>
+                          {/* Stack tags for Full Stack rows */}
+                          {stackTags.length > 0 && (
+                            <div className="mt-1 flex flex-wrap gap-1">
+                              {stackTags.map((tag, ti) => (
+                                <StackBadge key={tag} label={tag} kind={ti === 0 ? "fe" : "be"} />
+                              ))}
+                            </div>
+                          )}
+                          <div
+                            className={`mt-0.5 ${FONTS.bodyXs} ${COLORS.textMuted} line-clamp-1 md:hidden`}
+                          >
+                            {p.category} · {p.year}
+                          </div>
+                          <div
+                            className={`mt-0.5 ${FONTS.bodyXs} ${COLORS.textMuted} line-clamp-1 hidden md:block`}
+                          >
+                            {p.summary}
+                          </div>
+                        </td>
+
+                        <td className="hidden px-4 py-4 md:table-cell">
+                          <span
+                            className={`inline-flex rounded-full border border-border/60 bg-card/40 px-2.5 py-1 ${FONTS.labelXs}`}
+                          >
+                            {p.category}
+                          </span>
+                        </td>
+
+                        <td
+                          className={`hidden px-4 py-4 ${FONTS.labelXs} ${COLORS.textMuted} md:table-cell`}
                         >
-                          Open <ArrowUpRight className="size-3" />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
+                          {p.year}
+                        </td>
+
+                        <td className="px-4 py-4">
+                          <Link
+                            to="/projects/$slug"
+                            params={{ slug: p.slug }}
+                            onClick={() => setModalOpen(false)}
+                            className={`inline-flex items-center gap-1 ${FONTS.labelXs} ${COLORS.textMuted} transition hover:${COLORS.textBase}`}
+                          >
+                            Open <ArrowUpRight className="size-3" />
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+
                   {modalItems.length === 0 && (
                     <tr>
-                      <td colSpan={5} className={`px-6 py-16 text-center ${FONTS.bodySm} ${COLORS.textMuted}`}>
+                      <td
+                        colSpan={5}
+                        className={`px-6 py-16 text-center ${FONTS.bodySm} ${COLORS.textMuted}`}
+                      >
                         No projects match your search.
                       </td>
                     </tr>
@@ -250,11 +344,24 @@ export function Projects() {
               </table>
             </div>
 
-            {/* Footer */}
-            <div className="border-t border-border px-6 py-3">
+            {/* ── Sticky footer ── */}
+            <div className="flex flex-shrink-0 items-center justify-between border-t border-border px-6 py-3">
               <span className={`${FONTS.labelXs} ${COLORS.textMuted}`}>
-                {modalItems.length} project{modalItems.length !== 1 ? "s" : ""} shown
+                {modalItems.length} of {items.length} project
+                {items.length !== 1 ? "s" : ""}
               </span>
+              {search || modalFilter !== allCategoryLabel ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearch("");
+                    setModalFilter(allCategoryLabel);
+                  }}
+                  className={`${FONTS.labelXs} ${COLORS.textMuted} underline underline-offset-2 transition hover:${COLORS.textBase}`}
+                >
+                  Clear filters
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
