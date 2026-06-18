@@ -76,9 +76,16 @@ export default defineConfig({
 
   resolve: {
     alias: { "@": "/src" },
+    // Force all packages (incl. @react-three/fiber) to share the same React
+    // instance. Without this, Vite may bundle two copies of React, causing
+    // "Invalid hook call" errors at runtime.
+    dedupe: ["react", "react-dom", "react-dom/client"],
   },
 
   optimizeDeps: {
+    // resolve.dedupe above handles the single-React guarantee for
+    // @react-three/fiber. Avoid forcing pre-bundle of react/react-dom
+    // explicitly — it triggers hash churn and 504s during dev restarts.
     exclude: ["@tanstack/start-storage-context"],
     esbuildOptions: {
       define: { global: "globalThis" },

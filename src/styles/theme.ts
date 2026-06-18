@@ -5,7 +5,7 @@
  */
 
 export const SPACING = {
-  section: "px-6 py-20 md:px-10 md:py-32",
+  section: "px-6 py-24 md:px-10 md:py-36",
   cardPadding: "p-6 md:p-8",
   gap: "gap-6",
   largeGap: "gap-8",
@@ -22,11 +22,12 @@ export const BORDERS = {
 
 export const FONTS = {
   // HEADINGS — Jim Nightshade (font-title)
-  displayXl: "font-title text-6xl md:text-7xl leading-tight tracking-tight",
-  displayLg: "font-title text-4xl md:text-5xl leading-tight tracking-tight",
-  displayMd: "font-title text-3xl md:text-4xl leading-tight tracking-tight",
-  displaySm: "font-title text-2xl md:text-3xl leading-snug tracking-tight",
-  displayXs: "font-title text-xl md:text-2xl leading-snug tracking-tight",
+  displayHero: "font-title text-[clamp(3.5rem,8vw,7rem)] leading-[0.88] tracking-tight",
+  displayXl:   "font-title text-6xl md:text-7xl leading-tight tracking-tight",
+  displayLg:   "font-title text-4xl md:text-5xl leading-tight tracking-tight",
+  displayMd:   "font-title text-3xl md:text-4xl leading-tight tracking-tight",
+  displaySm:   "font-title text-2xl md:text-3xl leading-snug tracking-tight",
+  displayXs:   "font-title text-xl md:text-2xl leading-snug tracking-tight",
 
   // BODY TEXT — Italianno (font-accent)
   // leading-relaxed is included — do NOT add it again in JSX
@@ -42,7 +43,7 @@ export const FONTS = {
   labelMd: "font-accent text-sm uppercase tracking-[0.18em] font-medium",
   labelSm: "font-accent text-xs md:text-sm uppercase tracking-[0.2em] font-medium",
   labelXs: "font-accent text-xs uppercase tracking-[0.2em]",
-  caption: "font-accent text-xs md:text-sm text-muted-foreground",
+  caption:  "font-accent text-xs md:text-sm text-muted-foreground",
 
   // INPUT / FORM
   inputLg: "font-accent text-lg",
@@ -55,49 +56,72 @@ export const FONTS = {
 
 export const COLORS = {
   // Text
-  textBase: "text-foreground",
-  textMuted: "text-muted-foreground",
-  /** Foreground at 75% opacity — for body prose inside cards */
+  textBase:   "text-foreground",
+  textMuted:  "text-muted-foreground",
   textSubtle: "text-foreground/75",
   textXsLabel: "text-xs uppercase tracking-[0.2em]",
   textSmLabel: "text-sm uppercase tracking-[0.18em]",
 
   // Backgrounds
-  bgCard: "bg-card/50",
-  bgCardLight: "bg-card/20",
-  bgCardHover: "hover:bg-card/30",
+  bgCard:       "bg-card/50",
+  bgCardLight:  "bg-card/20",
+  bgCardHover:  "hover:bg-card/30",
   bgMobileMenu: "bg-background/95",
 
   // Hover state (buttons, badges)
   hoverState: "hover:bg-foreground hover:text-background hover:border-foreground hover:shadow-lg hover:shadow-foreground/20",
 } as const;
 
+/** Ease curves */
+export const EASE = {
+  out:   [0.16, 1, 0.3, 1]  as [number,number,number,number],
+  inOut: [0.76, 0, 0.24, 1] as [number,number,number,number],
+  spring:{ type: "spring" as const, stiffness: 260, damping: 28 },
+} as const;
+
 export const ANIMATIONS = {
+  /** Standard card entrance — used on repeating list items */
   cardIn: {
-    initial: { opacity: 0, y: 16 },
+    initial:    { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-60px" },
-    transition: { duration: 0.5 },
+    viewport:   { once: true, margin: "-60px" },
+    transition: { duration: 0.55, ease: EASE.out },
   },
+  /** Slower fade for section intros and prose blocks */
   fadeIn: {
-    initial: { opacity: 0, y: 12 },
+    initial:    { opacity: 0, y: 14 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-80px" },
-    transition: { duration: 0.6 },
+    viewport:   { once: true, margin: "-80px" },
+    transition: { duration: 0.65, ease: EASE.out },
   },
+  /** Scale up for badges / chips */
   scaleIn: {
-    initial: { opacity: 0, scale: 0.9 },
+    initial:    { opacity: 0, scale: 0.88 },
     whileInView: { opacity: 1, scale: 1 },
-    viewport: { once: true, margin: "-40px" },
-    transition: { duration: 0.3 },
+    viewport:   { once: true, margin: "-40px" },
+    transition: { duration: 0.35, ease: EASE.out },
+  },
+  /** Slide in from the left */
+  slideLeft: {
+    initial:    { opacity: 0, x: -24 },
+    whileInView: { opacity: 1, x: 0 },
+    viewport:   { once: true, margin: "-60px" },
+    transition: { duration: 0.55, ease: EASE.out },
+  },
+  /** Slide in from the right */
+  slideRight: {
+    initial:    { opacity: 0, x: 24 },
+    whileInView: { opacity: 1, x: 0 },
+    viewport:   { once: true, margin: "-60px" },
+    transition: { duration: 0.55, ease: EASE.out },
   },
 } as const;
 
 export const GRIDS = {
   sectionLayout: "grid gap-12 md:grid-cols-12",
-  mainContent: "grid gap-6 md:grid-cols-12",
-  cardGrid1Col: "grid gap-4 md:grid-cols-12",
-  cardGrid3Col: "grid gap-px overflow-hidden md:grid-cols-3",
+  mainContent:   "grid gap-6 md:grid-cols-12",
+  cardGrid1Col:  "grid gap-4 md:grid-cols-12",
+  cardGrid3Col:  "grid gap-px overflow-hidden md:grid-cols-3",
 } as const;
 
 export const COMPONENTS = {
@@ -108,8 +132,8 @@ export const COMPONENTS = {
   statBadge: `inline-flex items-center justify-center min-w-20 px-4 py-2 rounded-full bg-muted/40 border border-border/60 hover:border-foreground/30 transition-colors`,
 
   // Filter pill — base + active + inactive variants
-  filterPill: `inline-flex rounded-full border ${FONTS.labelXs} transition`,
-  filterPillActive: "border-foreground bg-foreground text-background px-4 py-2",
+  filterPill:         `inline-flex rounded-full border ${FONTS.labelXs} transition`,
+  filterPillActive:   "border-foreground bg-foreground text-background px-4 py-2",
   filterPillInactive: "border-border text-muted-foreground hover:text-foreground hover:border-foreground px-4 py-2",
 
   // Table header cell
@@ -119,7 +143,7 @@ export const COMPONENTS = {
   card: `rounded-lg border border-border/40 bg-card/30 p-6 md:p-8 transition hover:border-border/80 hover:bg-card/30`,
 
   // Buttons
-  buttonPrimary: `inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 ${FONTS.buttonSm} text-background transition hover:bg-foreground/90`,
+  buttonPrimary:   `inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 ${FONTS.buttonSm} text-background transition hover:bg-foreground/90`,
   buttonSecondary: `inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 ${FONTS.buttonSm} transition hover:bg-foreground hover:text-background`,
 
   // Toggle button (icon-only circular button used in Header)
